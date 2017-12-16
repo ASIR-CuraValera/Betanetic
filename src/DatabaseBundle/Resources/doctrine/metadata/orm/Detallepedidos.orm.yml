@@ -1,0 +1,31 @@
+Detallepedidos:
+    type: entity
+    table: detallepedidos
+    indexes:
+        IDX_F2FDC88E29A7591:
+            columns:
+                - CodigoPedido
+        IDX_F2FDC88E4E23B11A:
+            columns:
+                - CodigoProducto
+    id:
+        codigoproducto:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            id: true
+            column: CodigoProducto
+    oneToOne:
+        codigopedido:
+            targetEntity: Pedido
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                CodigoPedido:
+                    referencedColumnName: CodigoPedido
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

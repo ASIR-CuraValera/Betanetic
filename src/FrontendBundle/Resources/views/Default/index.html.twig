@@ -1,0 +1,26 @@
+{% block header %}{% endblock %}
+
+{% block header_content %}
+    Buscar producto
+    Administracion
+    Cesta
+{% endblock %}
+
+{% block gamas %}
+    <ul>
+        <li><a href="{{path('listar',{'gama':'todas'})}}"></a></li>
+        {% for g in gamas %}
+            <li><a href="{{path('listar',{'gama':c.Gama})}}">{{c.Gama}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block menu_options %}{% endblock %}
+
+{% block main %}
+    <main>main</main>
+{% endblock %}
+
+{% block footer %}
+    <footer>footer</footer>
+{% endblock %}

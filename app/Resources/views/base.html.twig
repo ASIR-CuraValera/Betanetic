@@ -2,12 +2,47 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>Betanetic! - {% block title %}Inicio{% endblock %}</title>
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="{{ asset('base/web.css') }}">
+
+        <link rel='stylesheet' media='(max-width: 480px)' href='{{ asset('base/xs.css') }}' />
+        <link rel='stylesheet' media='screen and (min-width: 481px) and (max-width: 992px)' href='{{ asset('base/sm.css') }}' />
+        <link rel='stylesheet' media='screen and (min-width: 993px) and (max-width: 1200px)' href='{{ asset('base/md.css') }}' />
+        <link rel='stylesheet' media='(max-width: 1201px)' href='{{ asset('base/lg.css') }}' />
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="{{ asset('base/web.js') }}"></script>
+
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block header %}
+        <header>
+            <img class="logo" src="{{ base('base/img/logo.png') }}" alt="">
+
+            {% block header_content %}{% endblock %}
+
+            <ul>
+                <li>Mi cesta</li>
+                <li>Gamas
+                {% block gamas %}{% endblock %}
+                </li>
+                <li>Administración</li>
+            </ul>
+            {% block menu_block %}{% endblock %}
+        </header>
+    {% endblock %}
+    
+    {% block main %}{% endblock %}
+    {% block footer %}{% endblock %}
     </body>
 </html>
