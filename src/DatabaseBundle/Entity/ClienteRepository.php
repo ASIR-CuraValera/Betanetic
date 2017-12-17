@@ -23,7 +23,7 @@ class ClienteRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
 
         if($gama_var == 'todas')
-            $dql= $em->createQuery('SELECT p from DatabaseBundle:Producto p');
+            $dql = $em->createQuery('SELECT p from DatabaseBundle:Producto p');
         else
         {
             $gama = $em->createQuery('SELECT g.gama from DatabaseBundle:Gamasproducto g order by g.gama')->setFirstResult((int)$gama_var)->setMaxResults(1)->getArrayResult()[0]["gama"];

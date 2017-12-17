@@ -1,3 +1,5 @@
+{% extends '::base.html.twig' %}
+
 {% block header %}{% endblock %}
 
 {% block header_content %}
@@ -19,35 +21,16 @@
 
 {% block main %}
     <main>
+        <center>
+
+        </center>
         Iterar aqui los productos
         <i class="fas fa-camera-retro"></i>
     </main>
 
-    {# total items count #}
-    <div class="count">
-        {{ pagination.getTotalItemCount }}
-    </div>
-    <table>
-        <tr>
-            {# sorting of properties based on query components #}
-            <th>{{ knp_pagination_sortable(pagination, 'CodigoProducto', 'p.codigoproducto') }}</th>
-            <th{% if pagination.isSorted('p.nombre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Titulo', 'p.nombre') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'Precio', 'p.precioventa') }}</th>
-        </tr>
-
-        {# table body #}
-        {% for article in pagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ article.codigoproducto }}</td>
-                <td>{{ article.nombre }}</td>
-                <td>{{ article.precioventa }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+    <br>
+    Insertar
+    {{ form(formulario) }}
 {% endblock %}
 
 {% block footer %}

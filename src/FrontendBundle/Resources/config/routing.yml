@@ -5,3 +5,7 @@ frontend_homepage:
 listar:
     path:     /gama/{gama}
     defaults: { _controller: FrontendBundle:Default:listar }
+
+insertar:
+    path:     /insertar
+    defaults: { _controller: FrontendBundle:Default:insertar }
