@@ -3,34 +3,33 @@
 namespace FrontendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction() //Request $request
+    public function indexAction(Request $request)
     {
-        //$libros = $this->getDoctrine()->getManager()->getRepository('BdBundle:General')->getlibros();
-        $gamas = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->aa();
+        $pag = $this->get('knp_paginator');
+        $productos = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->getProducto('all', $request, $pag);
+        $gamas = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->getGama();
 
         return $this->render('FrontendBundle:Default:index.html.twig', array(
-            'gamas'=>$gamas//,
-            //'libros'=>$libros
+            'gamas' => $gamas,
+            'productos' => $productos[0],
+            'pagination' => $productos["pag"]
         ));
     }
 
-    /*public function listarAction($gama)
+    public function listarAction($gama, Request $request)
     {
-        $categorias = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Gamasproducto')->GetGama();
-
-        //$productos = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Gamasproducto')->GetProductos($gama);
-
-
-
-
+        $pag = $this->get('knp_paginator');
+        $gamas = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->getGama();
+        $productos = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->getProducto($gama, $request, $pag);
 
         return $this->render('FrontendBundle:Default:index.html.twig',array(
-            'categorias'=>$categorias//,
-            //'libros'=>$libros
-
+            'gamas' => $gamas,
+            'productos' => $productos[0],
+            'pagination' => $productos["pag"]
         ));
-    }*/
+    }
 }

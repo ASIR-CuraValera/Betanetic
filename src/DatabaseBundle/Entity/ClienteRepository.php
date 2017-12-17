@@ -4,40 +4,47 @@ namespace DatabaseBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 
-
 class ClienteRepository extends \Doctrine\ORM\EntityRepository
 {
-
-    public function aa() {
-        return "hola";
-    }
 
     public function getGama()
     {
         $em = $this->getEntityManager();
-        $dql= $em->createQuery('SELECT g from DatabaseBundle:Gamasproducto g');
+        $dql= $em->createQuery('SELECT g from DatabaseBundle:Gamasproducto g order by g.gama'); //Como no tenemos una clave primaria vamos aa tener que hacer un poco la chapuza asegurandonos de que haya un orden para que cuando vayamos a obtener el registro coincida
 
-        $cat = $dql->getResult();
+        $gama = $dql->getResult();
 
-        return $cat;
+        return $gama;
     }
 
 
-    public function getProducto($gama)
+    public function getProducto($gama_var, $request, $pag)
     {
         $em = $this->getEntityManager();
 
-        if($gama == 'todas')
-            $dql= $em->createQuery('SELECT p,c from DatabaseBundle:Producto p join p.CodigoProducto c order by p.CodigoProducto');
-        //else
-        //    $dql= $em->createQuery('SELECT p,c from BdBundle:Libros l join l.categoriaid c where l.categoriaid = :categoria')->setParameter('categoria',$categoria);
+        if($gama_var == 'todas')
+            $dql= $em->createQuery('SELECT p from DatabaseBundle:Producto p');
+        else
+        {
+            $gama = $em->createQuery('SELECT g.gama from DatabaseBundle:Gamasproducto g order by g.gama')->setFirstResult((int)$gama_var)->setMaxResults(1)->getArrayResult()[0]["gama"];
+            $dql = $em->createQuery('SELECT p from DatabaseBundle:Producto p where p.gama = :gama order by p.codigoproducto')->setParameter('gama', $gama);
+        }
 
+        $productos = $dql->getResult();
 
-        $libros = $dql->getResult();
+        return array(0 => $productos, "pag" => $this->Paginate($dql, $request, $pag));
 
+    }
 
-        return $libros;
+    public function Paginate($query, $request, $pag)
+    {
+        $pagination = $pag->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            2
+        );
 
+        return $pagination;
     }
 
 }

@@ -2,17 +2,12 @@ frontend:
     resource: "@FrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
-backend:
-    resource: "@BackendBundle/Resources/config/routing.yml"
-    prefix:   /back
-
 database:
     resource: "@DatabaseBundle/Resources/config/routing.yml"
     prefix:   /database
 
 app:
     resource: "@AppBundle/Controller/"
-    #prefix:   /
     type:     annotation
 
 #app:

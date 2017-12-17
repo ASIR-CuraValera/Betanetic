@@ -1,7 +1,3 @@
 principal:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
-
-listar:
-    path:     /gama/{gama}
-    defaults: { _controller: AppBundle:Default:listar }

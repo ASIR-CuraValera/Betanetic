@@ -8,9 +8,9 @@
 
 {% block gamas %}
     <ul>
-        <li><a href="{{path('listar',{'gama':'todas'})}}"></a></li>
+        <li><a href="{{path('listar',{'gama':'todas'})}}">Todas</a></li>
         {% for g in gamas %}
-            <li><a href="{{path('listar',{'gama':c.Gama})}}">{{c.Gama}}</a></li>
+            <li><a href="{{path('listar',{'gama':loop.index0})}}">{{g.Gama}}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
@@ -18,7 +18,16 @@
 {% block menu_options %}{% endblock %}
 
 {% block main %}
-    <main>main</main>
+    <main>
+        Iterar aqui los productos
+        <i class="fas fa-camera-retro"></i>
+        {% for p in productos %}
+            <p>{{ p.Nombre }}</p>
+        {% endfor %}
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </main>
 {% endblock %}
 
 {% block footer %}

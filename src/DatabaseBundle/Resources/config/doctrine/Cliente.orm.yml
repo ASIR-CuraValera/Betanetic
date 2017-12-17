@@ -1,6 +1,7 @@
 DatabaseBundle\Entity\Cliente:
     type: entity
     table: cliente
+    repositoryClass: DatabaseBundle\Entity\ClienteRepository
     indexes:
         Clientes_EmpleadosFK:
             columns:
