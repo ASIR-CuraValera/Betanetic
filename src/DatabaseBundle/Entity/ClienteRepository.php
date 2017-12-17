@@ -18,7 +18,7 @@ class ClienteRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function getProducto($gama_var, $request, $pag)
+    public function getProducto($gama_var)
     {
         $em = $this->getEntityManager();
 
@@ -30,21 +30,9 @@ class ClienteRepository extends \Doctrine\ORM\EntityRepository
             $dql = $em->createQuery('SELECT p from DatabaseBundle:Producto p where p.gama = :gama order by p.codigoproducto')->setParameter('gama', $gama);
         }
 
-        $productos = $dql->getResult();
+        //$productos = $dql->getResult();
 
-        return array(0 => $productos, "pag" => $this->Paginate($dql, $request, $pag));
+        return $dql; //array(0 => $productos, "dql" => $dql);
 
     }
-
-    public function Paginate($query, $request, $pag)
-    {
-        $pagination = $pag->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            2
-        );
-
-        return $pagination;
-    }
-
 }
