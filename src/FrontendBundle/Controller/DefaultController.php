@@ -2,8 +2,8 @@
 
 namespace FrontendBundle\Controller;
 
+//use DatabaseBundle\Entity\Paginador;
 use DatabaseBundle\Entity\Producto;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -12,14 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class DefaultController extends Controller
 {
     public $form;
+    public $cliente;
     public $productos;
     public $gamas;
 
-    public function Load()
+    public function Load($prods = true)
     {
-        $this->productos = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente');
-        $this->productos->getProducto('all');
-        $this->gamas = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente')->getGama();
+        $this->cliente = $this->getDoctrine()->getManager()->getRepository('DatabaseBundle:Cliente');
+        $this->productos = $this->cliente;
+        if($prods)
+            $this->productos = $this->productos->getProducto('all');
+        $this->gamas = $this->cliente->getGama();
+
+        //Crear el formulario
         $this->form = $this->createFormBuilder()
             ->add('phone', TextType::class, array('attr' => array('autofocus' => '')))
             ->add('period', IntegerType::class, array('attr' => array('value' => '12')))
@@ -28,23 +33,23 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request)
     {
-        $this->Load();
+        $this->Load($request);
 
         return $this->render('FrontendBundle:Default:index.html.twig', array(
             'gamas' => $this->gamas,
-            'pagination' => null, //$this->Paginate($this->productos, $request),
+            'pag' => $this->productos->paginar($request),
             'formulario' => $this->form
         ));
     }
 
     public function listarAction(Request $request, $gama)
     {
-        $this->Load();
-        $this->productos->getProducto($gama);
+        $this->Load(false);
+        $this->productos = $this->productos->getProducto($gama);
 
         return $this->render('FrontendBundle:Default:index.html.twig',array(
             'gamas' => $this->gamas,
-            'pagination' => null, //$this->Paginate($this->productos, $request),
+            'pag' => $this->productos->paginar($request),
             'formulario' => $this->form
         ));
     }
@@ -82,20 +87,9 @@ class DefaultController extends Controller
 
         return $this->render('FrontendBundle:Default:index.html.twig', array(
             'gamas' => $this->gamas,
-            'pagination' => null, // $this->Paginate($this->productos, $request),
+            'pag' => $this->productos->paginar($request),
             'flush' => $flush
         ));
-    }
-
-    public function Paginate($query, $request)
-    {
-        $pag = $this->get('knp_paginator')->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10
-        );
-
-        return $pag;
     }
 
 }

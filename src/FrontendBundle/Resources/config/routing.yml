@@ -9,3 +9,7 @@ listar:
 insertar:
     path:     /insertar
     defaults: { _controller: FrontendBundle:Default:insertar }
+
+page:
+    path:     /
+    #defaults: { _controller: FrontendBundle:Default:insertar }

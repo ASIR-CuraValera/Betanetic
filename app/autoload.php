@@ -10,4 +10,6 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
+define("PAGINATOR_LIMIT", 5);
+
 return $loader;

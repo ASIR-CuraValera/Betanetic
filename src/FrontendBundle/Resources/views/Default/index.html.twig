@@ -28,6 +28,30 @@
         <i class="fas fa-camera-retro"></i>
     </main>
 
+    {% for p in pag.elements %}
+        <p>{{ p.nombre }}</p>
+    {% endfor %}
+
+    {% if pag.maxPages > 1 %}
+        <ul class="pagination pagination-sm">
+            {# `«` arrow  #}
+            <li {{ pag.thisPage == 1 ? 'class="disabled"' }}>
+                <a href="{{ path('page', {page: pag.thisPage-1 < 1 ? 1 : pag.thisPage-1}) }}">«</a>
+            </li>
+
+            {# Render each page number #}
+            {% for i in 1..pag.maxPages %}
+                <li {{ pag.thisPage == i ? 'class="active"' }}>
+                    <a href="{{ path('page', {page: i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {# `»` arrow #}
+            <li {{ pag.thisPage == pag.maxPages ? 'class="disabled"' }}>
+                <a href="{{ path('page', {page: pag.thisPage+1 <= pag.maxPages ? pag.thisPage+1 : pag.thisPage}) }}">»</a>
+            </li>
+        </ul>
+    {% endif %}
     <br>
     Insertar
     {{ form(formulario) }}
