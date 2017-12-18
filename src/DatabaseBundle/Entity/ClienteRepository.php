@@ -13,7 +13,7 @@ class ClienteRepository extends \Doctrine\ORM\EntityRepository
     public function getGama()
     {
         $em = $this->getEntityManager();
-        $dql= $em->createQuery('SELECT g from DatabaseBundle:Gamasproducto g order by g.gama'); //Como no tenemos una clave primaria vamos aa tener que hacer un poco la chapuza asegurandonos de que haya un orden para que cuando vayamos a obtener el registro coincida
+        $dql= $em->createQuery('SELECT g.gama from DatabaseBundle:Gamasproducto g order by g.gama'); //Como no tenemos una clave primaria vamos aa tener que hacer un poco la chapuza asegurandonos de que haya un orden para que cuando vayamos a obtener el registro coincida
 
         $gama = $dql->getResult();
 

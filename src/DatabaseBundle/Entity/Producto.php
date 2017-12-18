@@ -71,6 +71,20 @@ class Producto
     }
 
     /**
+     * Set codigoproducto
+     * Al ser esto una clave primaria deberia tener auto_increment activado, pero como no, tenemos que hacerlo nosotros manualmente.
+     * Al crear la entidad no se genera este metodo (ya que comodigo esto es una clave primaria) asi que tenemos que crear nosotros
+     * el metodo para setear el valor.
+     * @return string
+     */
+    public function setCodigoproducto($cod)
+    {
+        $this->codigoproducto = $cod;
+
+        return $this;
+    }
+
+    /**
      * Get codigoproducto
      *
      * @return string
