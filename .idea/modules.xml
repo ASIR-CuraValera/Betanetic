@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/betanetic.iml" filepath="$PROJECT_DIR$/.idea/betanetic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Botanetic/.idea/jardineriaEx.iml" filepath="$PROJECT_DIR$/../../Botanetic/.idea/jardineriaEx.iml" />
     </modules>
   </component>
 </project>

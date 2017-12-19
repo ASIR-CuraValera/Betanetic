@@ -22,7 +22,11 @@
 {% block main %}
     <main>
         <center>
-
+            {% if flush %}
+                <h2>Error de insercción</h2>
+            {% else %}
+                <h2>Producto insertado con éxito</h2>
+            {% endif %}
         </center>
         Iterar aqui los productos
         <i class="fas fa-camera-retro"></i>
